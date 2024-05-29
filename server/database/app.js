@@ -4,7 +4,6 @@
 /* eslint-env es6 */
 
 /*jshint esversion: 6 */
-/*esversion: 8 */
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -26,6 +25,7 @@ mongoose.connect("mongodb://mongo_db:27017/", { dbName: 'dealershipsDB' });
 const Reviews = require('./review');
 const Dealerships = require('./dealership');
 
+/*jshint esversion: 8 */
 (async () => {
     try {
         await Reviews.deleteMany({});
@@ -39,11 +39,13 @@ const Dealerships = require('./dealership');
     }
 })();
 
+/*jshint esversion: 8 */
 // Express route to home
 app.get('/', async (req, res) => {
     res.send("Welcome to the Mongoose API");
 });
 
+/*jshint esversion: 8 */
 // Express route to fetch all reviews
 app.get('/fetchReviews', async (req, res) => {
     try {
@@ -54,6 +56,7 @@ app.get('/fetchReviews', async (req, res) => {
     }
 });
 
+/*jshint esversion: 8 */
 // Express route to fetch reviews by a particular dealer
 app.get('/fetchReviews/dealer/:id', async (req, res) => {
     try {
@@ -64,6 +67,7 @@ app.get('/fetchReviews/dealer/:id', async (req, res) => {
     }
 });
 
+/*jshint esversion: 8 */
 // Express route to fetch all dealerships
 app.get('/fetchDealers', async (req, res) => {
     try {
@@ -74,6 +78,7 @@ app.get('/fetchDealers', async (req, res) => {
     }
 });
 
+/*jshint esversion: 8 */
 // Express route to fetch Dealers by a particular state
 app.get('/fetchDealers/:state', async (req, res) => {
     try {
@@ -84,6 +89,7 @@ app.get('/fetchDealers/:state', async (req, res) => {
     }
 });
 
+/*jshint esversion: 8 */
 // Express route to fetch dealer by a particular id
 app.get('/fetchDealer/:id', async (req, res) => {
     try {
@@ -94,6 +100,7 @@ app.get('/fetchDealer/:id', async (req, res) => {
     }
 });
 
+/*jshint esversion: 8 */
 // Express route to insert review
 app.post('/insert_review', express.raw({ type: '*/*' }), async (req, res) => {
     try {
