@@ -10,6 +10,7 @@ from .restapis import get_request, analyze_review_sentiments, post_review
 
 logger = logging.getLogger(__name__)
 
+
 @csrf_exempt
 def login_user(request):
     data = json.loads(request.body)
@@ -22,11 +23,13 @@ def login_user(request):
         data = {"userName": username, "status": "Authenticated"}
     return JsonResponse(data)
 
+
 @csrf_exempt
 def logout_request(request):
     logout(request)
     data = {"userName": ""}
     return JsonResponse(data)
+
 
 @csrf_exempt
 def registration(request):
@@ -37,7 +40,6 @@ def registration(request):
     last_name = data['lastName']
     email = data['email']
     username_exist = False
-    email_exist = False
     try:
         User.objects.get(username=username)
         username_exist = True
@@ -54,6 +56,7 @@ def registration(request):
         data = {"userName": username, "error": "Already Registered"}
         return JsonResponse(data)
 
+
 @csrf_exempt
 def get_cars(request):
     count = CarMake.objects.filter().count()
@@ -63,10 +66,12 @@ def get_cars(request):
     cars = [{"CarModel": car_model.name, "CarMake": car_model.car_make.name} for car_model in car_models]
     return JsonResponse({"CarModels": cars})
 
+
 def get_dealerships(request, state="All"):
     endpoint = "/fetchDealers" if state == "All" else f"/fetchDealers/{state}"
     dealerships = get_request(endpoint)
     return JsonResponse({"status": 200, "dealers": dealerships})
+
 
 def get_dealer_reviews(request, dealer_id):
     if dealer_id:
@@ -79,6 +84,7 @@ def get_dealer_reviews(request, dealer_id):
     else:
         return JsonResponse({"status": 400, "message": "Bad Request"})
 
+
 def get_dealer_details(request, dealer_id):
     if dealer_id:
         endpoint = f"/fetchDealer/{dealer_id}"
@@ -86,6 +92,7 @@ def get_dealer_details(request, dealer_id):
         return JsonResponse({"status": 200, "dealer": dealership})
     else:
         return JsonResponse({"status": 400, "message": "Bad Request"})
+
 
 def add_review(request):
     if not request.user.is_anonymous:
