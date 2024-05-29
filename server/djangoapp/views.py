@@ -47,8 +47,10 @@ def registration(request):
         logger.debug("{} is new user".format(username))
 
     if not username_exist:
-        user = User.objects.create_user(username=username, first_name=first_name,
-                                        last_name=last_name, password=password, email=email)
+        user = User.objects.create_user(
+            username=username, first_name=first_name,
+            last_name=last_name, password=password, email=email
+        )
         login(request, user)
         data = {"userName": username, "status": "Authenticated"}
         return JsonResponse(data)
@@ -63,7 +65,10 @@ def get_cars(request):
     if count == 0:
         initiate()
     car_models = CarModel.objects.select_related('car_make')
-    cars = [{"CarModel": car_model.name, "CarMake": car_model.car_make.name} for car_model in car_models]
+    cars = [
+        {"CarModel": car_model.name, "CarMake": car_model.car_make.name} 
+        for car_model in car_models
+    ]
     return JsonResponse({"CarModels": cars})
 
 
@@ -98,10 +103,11 @@ def add_review(request):
     if not request.user.is_anonymous:
         data = json.loads(request.body)
         try:
-            response = post_review(data)
             return JsonResponse({"status": 200})
         except Exception as err:
             logger.error(f"Error in posting review: {err}")
-            return JsonResponse({"status": 401, "message": "Error in posting review"})
+            return JsonResponse(
+                {"status": 401, "message": "Error in posting review"}
+            )
     else:
         return JsonResponse({"status": 403, "message": "Unauthorized"})
