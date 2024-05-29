@@ -3,6 +3,9 @@
 // Set the ES version explicitly
 /* eslint-env es6 */
 
+
+/*jshint esversion: 6 */
+
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
