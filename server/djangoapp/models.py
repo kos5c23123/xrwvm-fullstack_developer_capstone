@@ -1,7 +1,6 @@
 # Uncomment the following imports before adding the Model code
 
 from django.db import models
-from django.utils.timezone import now
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
@@ -33,8 +32,8 @@ class CarMake(models.Model):
 # - __str__ method to print a car make object
 
 class CarModel(models.Model):
-    car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)  # Many-to-One relationship
-    dealer_id = models.IntegerField()  # Refers to a dealer created in Cloudant database
+    car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)
+    dealer_id = models.IntegerField()
     name = models.CharField(max_length=100)
     CAR_TYPES = [
         ('SEDAN', 'Sedan'),
@@ -53,4 +52,4 @@ class CarModel(models.Model):
     # Add any other fields as needed
 
     def __str__(self):
-        return f'{self.car_make.name} {self.name}'  # Return the car make and model as the string representation
+        return f'{self.car_make.name} {self.name}'
